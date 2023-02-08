@@ -49,6 +49,10 @@
             {
                 "command": "supercollider.killTerminal",
                 "key": "ctrl+."
+            },
+            {
+                "command": "supercollider.openHelp",
+                "key": "ctrl+shift+d"
             }
         ],
         "commands": [

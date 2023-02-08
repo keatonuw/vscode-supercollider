@@ -14,6 +14,7 @@ Disclaimer: This extension has only been tested on Windows.
 ## Features
  - Syntax highlighting
  - Running SuperCollider from the VS Code terminal
+ - Access to SuperCollider Help Browser
 
 ## Instructions
 1. Install the vscode-supercollider extension in VS Code.
@@ -30,7 +31,12 @@ you use within vscode. Examples:
 
 4. Open a SuperCollider file (`.scd`). To run use
 `Ctrl + Shift + b`. Once your SuperCollider script
-is running you can kill it with `Ctrl + .`
+is running you can kill it with `Ctrl + .` To open
+the help brower, use `Ctrl + Shift + d`. Assuming
+you have sclang installed with the Qt WebEngine
+dependency, this should bring up the help browser.
+To look up a specific help page, select the text 
+you wish to search for and press `Ctrl + Shift + d`.
 
 5. N.B: Since SuperCollider will run code sequentially
 without waiting for the previous command to finish

@@ -1,5 +1,6 @@
 const vscode = require('vscode');
 const path = require('path');
+const child = require('child_process');
 
 let _activeTerminal = null;
 vscode.window.onDidCloseTerminal((terminal) => {
@@ -58,6 +59,18 @@ function handleInput(editor) {
     run(cmd);
 }
 
+function handleDocs(context, editor) {
+    const scPath = vscode.workspace.getConfiguration().get('supercollider.sclangCmd');
+    const scriptPath = context.extensionPath;
+    const text = editor.document.getText(editor.selection);
+
+    const cmd = `${scPath} ${scriptPath}/openhelp.scd ${text}`; 
+    // note: this may cause an issue on a non-unix OS
+    // better path resolution is definitely possible...
+
+    child.exec(cmd);
+}
+
 function activate(context) {
     let execInTerminal = vscode.commands.registerCommand('supercollider.execInTerminal', () => {
         const editor = vscode.window.activeTextEditor
@@ -75,6 +88,17 @@ function activate(context) {
             disposeTerminal();
     });
     context.subscriptions.push(killTerminal);
+
+    let openHelp = vscode.commands.registerCommand('supercollider.openHelp', () => {
+        const editor = vscode.window.activeTextEditor;
+        if (!editor) {
+            warn('no active editor');
+            return;
+        }
+
+        handleDocs(context, editor)
+    });
+    context.subscriptions.push(openHelp);
 }
 exports.activate = activate;
 
